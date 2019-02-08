@@ -107,9 +107,7 @@ def get_unique_project_name():
         # JIRA even if it is documented as supported.
         jid = 'T' + hashify(user + os.environ['TRAVIS_JOB_NUMBER'])
     else:
-        identifier = user + \
-                     chr(ord('A') + sys.version_info[0]) + \
-                     chr(ord('A') + sys.version_info[1])
+        identifier = user + chr(ord('A') + sys.version_info[0]) + chr(ord('A') + sys.version_info[1])
         jid = 'Z' + hashify(identifier)
     return jid
 
@@ -211,7 +209,7 @@ class JiraTestManager(object):
                     self.jira_normal = JIRA(
                         oauth={
                             'access_token': 'ZVDgYDyIQqJY8IFlQ446jZaURIz5ECiB',
-                            'access_token_secret':'5WbLBybPDg1lqqyFjyXSCsCtAWTwz1eD',
+                            'access_token_secret': '5WbLBybPDg1lqqyFjyXSCsCtAWTwz1eD',
                             'consumer_key': CONSUMER_KEY,
                             'key_cert': KEY_CERT_DATA})
                 else:
@@ -267,7 +265,7 @@ class JiraTestManager(object):
                 else:
                     try:
                         self.jira_admin.delete_project(self.project_a)
-                    except Exception as e:
+                    except Exception:
                         pass
 
                 try:
@@ -278,7 +276,7 @@ class JiraTestManager(object):
                 else:
                     try:
                         self.jira_admin.delete_project(self.project_b)
-                    except Exception as e:
+                    except Exception:
                         pass
 
                 # wait for the project to be deleted
@@ -350,8 +348,8 @@ class JiraTestManager(object):
                 sleep(1)
                 counter += 1
                 if counter > 60:
-                    logging.fatal("Something is clearly not right with " +
-                                  "initialization, killing the tests to prevent a " +
+                    logging.fatal("Something is clearly not right with "
+                                  "initialization, killing the tests to prevent a "
                                   "deadlock.")
                     sys.exit(3)
 
@@ -2086,9 +2084,7 @@ class UserAdministrationTests(unittest.TestCase):
                     'permission to modify users.')
 
     def _should_skip_for_pycontribs_instance(self):
-        return self.test_manager.CI_JIRA_ADMIN == 'ci-admin' and (
-                self.test_manager.CI_JIRA_URL ==
-                "https://pycontribs.atlassian.net")
+        return self.test_manager.CI_JIRA_ADMIN == 'ci-admin' and self.test_manager.CI_JIRA_URL == "https://pycontribs.atlassian.net"
 
     def test_add_and_remove_user(self):
         if self._should_skip_for_pycontribs_instance():

@@ -2072,9 +2072,7 @@ class JIRA(object):
         """
         if hasattr(service_desk, 'id'):
             service_desk = service_desk.id
-        url = (self._options['server'] +
-               '/rest/servicedeskapi/servicedesk/%s/requesttype'
-               % service_desk)
+        url = (self._options['server'] + '/rest/servicedeskapi/servicedesk/%s/requesttype' % service_desk)
         headers = {'X-ExperimentalApi': 'opt-in'}
         r_json = json_loads(self._session.get(url, headers=headers))
         request_types = [

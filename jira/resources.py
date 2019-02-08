@@ -318,13 +318,13 @@ class Resource(object):
                     if m:
                         user = m.groups()[0]
                     else:
-                        raise NotImplemented()
+                        raise NotImplementedError()
                 if re.search("^User '(.*)' does not exist\.", error):
                     m = re.search("^User '(.*)' does not exist\.", error)
                     if m:
                         user = m.groups()[0]
                     else:
-                        raise NotImplemented()
+                        raise NotImplementedError()
 
             if user:
                 logging.warning(
@@ -602,6 +602,8 @@ class Comment(Resource):
             self._parse_raw(raw)
 
     def update(self, fields=None, async_=None, jira=None, body='', visibility=None):
+        """Replace the comment with new content."""
+
         data = {}
         if body:
             data['body'] = body
